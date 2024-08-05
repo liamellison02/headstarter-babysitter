@@ -11,9 +11,11 @@ const Chat = () => {
     const chatContainer = useRef<HTMLDivElement>(null);
 
     const scroll = () => {
-        const { offsetHeight, scrollHeight, scrollTop } = chatContainer.current as HTMLDivElement
-        if (scrollHeight > offsetHeight + scrollTop) {
-            chatContainer.current?.scrollTo(0, scrollHeight + 200);
+        if (chatContainer.current) {
+            const { offsetHeight, scrollHeight, scrollTop } = chatContainer.current;
+            if (scrollHeight >= offsetHeight + scrollTop) {
+                chatContainer.current.scrollTo(0, scrollHeight + 200);
+            }
         }
     }
 
@@ -26,10 +28,10 @@ const Chat = () => {
             <div className="response">
                 {messages.map((message, index) => (
                     <div key={message.id} className={`chat-line ${message.role === 'user' ? 'user-message' : 'ai-message'}`}>
-                        <Image className="avatar" alt="avatar" src={message.role === 'user' ? '/user.png' : '/ai.png'}/>
+                        <Image className="avatar" alt="avatar" src={message.role === 'user' ? '/user.png' : '/ai.png'} width={32} height={32}/>
                         <div style={{width: '100%', marginLeft: '16px' }}>
                             <p className="message">{message.content}</p>
-                            { index < messages.length - 1 && <div className="horizontal-line"/> } // Adds a horizontal line btwn messages
+                            { index < messages.length - 1 && <div className="horizontal-line"/> } 
                         </div>
                     </div>
                 ))}
@@ -40,7 +42,7 @@ const Chat = () => {
 
     return (
         <div className="chat">
-            {renderResponse()} // Renders all messages in the chat
+            {renderResponse()}
             
             <form
                 onSubmit={(e) => {

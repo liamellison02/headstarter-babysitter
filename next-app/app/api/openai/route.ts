@@ -10,7 +10,7 @@ export async function POST(req: Request, res: Response) {
   console.log('messages: ', messages);
 
   const response = await openai.chat.completions.create({
-    model: 'gpt-4.0-turbo',
+    model: 'gpt-4o',
     messages: [{
         role: 'system',
         content: 'You are a helpful assistant.',
@@ -19,4 +19,8 @@ export async function POST(req: Request, res: Response) {
     stream: true,
     temperature: 1,
   });
+
+  const stream = OpenAIStream(response);
+
+  return new StreamingTextResponse(stream);
 }
