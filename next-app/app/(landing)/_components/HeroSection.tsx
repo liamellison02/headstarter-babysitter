@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import { Saira } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { SVGProps } from "react";
+import { HTMLProps, SVGProps } from "react";
 
 const saira = Saira({ subsets: ["latin"], weight: "600" });
 
@@ -13,7 +13,12 @@ export default function HeroSection() {
     <div className="min-h-screen h-fit flex flex-col items-center justify-end gap-6 px-8 md:px-16 border-b-2 border-border pt-24">
       <div className="my-auto w-full px-8">
         {/* Container */}
-        <div className="border-x-2 border-white w-full mx-auto max-w-xl flex flex-col items-center text-center py-8">
+        <div className="relative border-x-2 border-white w-full mx-auto max-w-xl flex flex-col items-center text-center py-8">
+          {/* Graphics */}
+          <BlurCircle className="absolute h-20 w-20 bottom-1/2 right-full translate-x-1/4" />
+          <BlurCircle className="absolute h-20 w-20 top-1/2 left-full -translate-x-1/4" />
+          <BlurCircle className="absolute h-20 w-20 top-0 left-full -translate-x-1/4" />
+
           {/* Heading and text */}
           <div className="border-y-2 border-border w-[110%] p-4">
             <h2 className={cn(saira.className, "leading-7")}>
@@ -198,5 +203,17 @@ export function RiTriangleFill(props: SVGProps<SVGSVGElement>) {
         d="m12.866 3l9.526 16.5a1 1 0 0 1-.866 1.5H2.474a1 1 0 0 1-.866-1.5L11.134 3a1 1 0 0 1 1.732 0"
       ></path>
     </svg>
+  );
+}
+
+export function BlurCircle(props: HTMLProps<HTMLDivElement>) {
+  return (
+    <div
+      {...props}
+      className={cn(
+        "h-40 w-40 border border-white backdrop-blur-sm rounded-full flex items-center justify-center",
+        props.className
+      )}
+    ></div>
   );
 }

@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { SVGProps, useEffect, useState } from "react";
 
 export default function Navbar() {
-  const [scrollingUp, setScrollingUp] = useState(false);
+  const [scrollingUp, setScrollingUp] = useState(true);
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
 
   useEffect(() => {
