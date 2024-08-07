@@ -4,7 +4,7 @@ from flask import Flask, jsonify, request, Response, stream_with_context
 from flask_cors import CORS
 from dotenv import load_dotenv
 from collections import deque
-from tidb_vector.integrations import TiDBVectorClient
+from tidb_vector.integrations import TiDBVectorClient, TiDBVectorStore
 from sentence_transformers import SentenceTransformer
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain_community.chat_models import ChatOpenAI
@@ -21,6 +21,14 @@ load_dotenv()
 
 embed_model = SentenceTransformer("sentence-transformers/msmarco-MiniLM-L12-cos-v5", trust_remote_code=True)
 embed_model_dims = embed_model.get_sentence_embedding_dimension()
+
+db = TiDBVectorStore.from_documents(
+    documents=docs,
+    embedding=embeddings,
+    table_name=TABLE_NAME,
+    connection_string=tidb_connection_string,
+    distance_strategy="cosine",  # default, another option is "l2"
+)
 
 q = deque()
 stop_item = "###finish###"
@@ -136,3 +144,8 @@ def embed():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+if __name__ == '__main__':
+    """Set debug to False for production"""
+    app.run(debug=False, use_reloader=True) 
