@@ -1,4 +1,10 @@
 Flask
 flask_cors
 tidb-vector
-sentence-transformers
+sentence-transformers==3.0.1
+mysqlclient==2.2.4
+SQLAlchemy==2.0.30
+PyMySQL==1.1.0
+langchain 
+langchain-community
+langchain-openai
