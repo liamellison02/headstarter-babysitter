@@ -21,6 +21,7 @@ const buttonVariants = cva(
           "hover:bg-neutral-100 hover:text-neutral-900 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
         link: "text-neutral-900 underline-offset-4 hover:underline dark:text-neutral-50",
         label: "text-white bg-[#151313] border-2 border-white",
+        purple: "text-white bg-[#7A67DA] hover:bg-[#7A67DA]/90",
       },
       size: {
         default: "h-10 px-4 py-2",

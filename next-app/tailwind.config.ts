@@ -38,6 +38,8 @@ const config = {
         dumbYellow: "#E7B400",
         brightYellow: "#FFE873",
         border: "#B6B6B6",
+        lightPurple: "#C1B7F6",
+        purple: "#7A67DA",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
