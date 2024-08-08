@@ -32,6 +32,9 @@ const config = {
           to: { height: "0" },
         },
       },
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(to right, #3B374D 0%, rgba(62, 58, 81, 0.6) 49%, rgba(61, 58, 81, 0) 100%)',
+      },
       colors: {
         davy: "#121212",
         tingPurple: "#3E3A53",
