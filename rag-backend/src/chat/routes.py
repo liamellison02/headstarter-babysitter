@@ -11,7 +11,6 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
 from src.chat import bp
-from src import embed_model_dims, text_to_embedding
 
 q = deque()
 stop_item = "###finish###"
