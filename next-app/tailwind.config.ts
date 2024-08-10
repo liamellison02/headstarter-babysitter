@@ -38,6 +38,9 @@ const config = {
         dumbYellow: "#E7B400",
         brightYellow: "#FFE873",
         border: "#B6B6B6",
+        lightPurple: "#C1B7F6",
+        purple: "#7A67DA",
+        muted: "#858296",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -45,7 +48,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
 } satisfies Config;
 
 export default config;
