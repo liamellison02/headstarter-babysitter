@@ -44,13 +44,13 @@ export default function TeamSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 auto-rows-fr gap-12 w-full mt-12 px-8 sm:px-16 relative lg:-left-20">
           <TeamCard
             teammateName="Shafi"
-            teammateImgSrc="/liam.jpg"
+            teammateImgSrc="/shafi.png"
             discordHandle="shafi"
             discordLink="#"
           />
           <TeamCard
             teammateName="Potenzy"
-            teammateImgSrc="/spitfire.png"
+            teammateImgSrc="/potenzy.png"
             discordHandle="potenzy"
             discordLink="#"
           />
@@ -124,7 +124,10 @@ function TeamCard({
       )}
     >
       <Avatar className="w-16 h-16">
-        <AvatarImage src={teammateImgSrc}></AvatarImage>
+        <AvatarImage
+          src={teammateImgSrc}
+          className="object-cover"
+        ></AvatarImage>
         <AvatarFallback className="rounded">AZ</AvatarFallback>
       </Avatar>
 

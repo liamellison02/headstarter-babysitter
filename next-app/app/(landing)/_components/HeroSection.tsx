@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Saira } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { HTMLProps, SVGProps } from "react";
+import Link from "next/link";
 
 const saira = Saira({ subsets: ["latin"], weight: "600" });
 
@@ -37,7 +38,11 @@ export default function HeroSection() {
               give the experts a headache
             </p>
 
-            <Button className="font-bold rounded-full mt-6">Get Started</Button>
+            <Link href={"/sign-in"}>
+              <Button className="font-bold rounded-full mt-6">
+                Get Started
+              </Button>
+            </Link>
           </div>
 
           {/* CTA */}
