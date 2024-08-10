@@ -1,11 +1,15 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { SVGProps, useEffect, useState } from "react";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-
+import { usePathname } from "next/navigation";
+import { SVGProps, useEffect, useState } from "react";
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const firstWord = pathname?.split("/")[1];
+
   const [scrollingUp, setScrollingUp] = useState(true);
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
 
@@ -31,38 +35,39 @@ export default function Navbar() {
   return (
     <div
       className={cn(
-        "fixed top-0 left-0 w-full py-4 px-8 md:px-16 flex items-center justify-between bg-davy z-50 transition-all duration-700",
+        "fixed top-0 left-0 w-full py-2 px-8 md:px-16 flex items-center justify-between bg-transparent z-50 transition-all duration-700",
         scrollingUp ? "translate-y-0" : "-translate-y-full"
       )}
     >
-      {/* Github Button */}
-      <Button variant={"ghost"}>
-        <MdiGithubFace className="w-8 h-8 mr-2" /> Github
-      </Button>
-      {/* Logo */}
-      <Button variant={"ghost"} className="py-2 h-fit">
-        <MaterialSymbolsLogoDev className="w-12 h-12" />
-        Logo
-      </Button>
+      <div className="flex items-center justify-center gap-12">
+        {/* Logo */}
+        <Button variant={"ghost"} className="py-2 h-fit">
+          <MaterialSymbolsLogoDev className="w-12 h-12" />
+          Logo
+        </Button>
+
+        {/*  */}
+        <Link href={"/chat"}>
+          <Button
+            variant={firstWord === "chat" ? "purple" : "ghost"}
+            className="font-semibold hidden md:block h-fit"
+          >
+            Chat
+          </Button>
+        </Link>
+        {/*  */}
+        <Link href={"/leaderboard"}>
+          <Button
+            variant={firstWord === "leaderboard" ? "purple" : "ghost"}
+            className="font-semibold hidden md:block h-fit"
+          >
+            Silly Goose Leaderboard
+          </Button>
+        </Link>
+      </div>
 
       {/* Sign In Button */}
-      <SignedOut>
-      <Link href="/sign-in">
-      <Button className="font-bold">Sign In</Button>
-      </Link>
-      </SignedOut>
-      <SignedIn>
-          <UserButton
-            appearance={{
-              elements: {
-                avatarBox: "h-10 w-10",
-              },
-              variables: {
-                colorPrimary: "#5D63AF",
-              },
-            }}
-          />
-        </SignedIn>
+      <Button className="font-bold">Log Out</Button>
     </div>
   );
 }
