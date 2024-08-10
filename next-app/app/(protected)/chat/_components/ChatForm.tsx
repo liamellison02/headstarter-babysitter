@@ -3,45 +3,74 @@
 import { Button } from "@/components/ui/button";
 import { Message, useChat } from "ai/react";
 import { createContext, SVGProps } from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+const formSchema = z.object({
+  input: z.string().min(2).max(500),
+});
 
 export const MessagesContext = createContext<Message[]>([]);
 
 export default function ChatForm({ children }: { children?: React.ReactNode }) {
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      input: "",
+    },
+  });
+
   const { isLoading, setInput, input, handleSubmit, messages } = useChat({
-    api: "https://rag-api-ogv3.onrender.com/chat/",
+    api: "/api/mistral/chat",
+    maxToolRoundtrips: 2,
   });
 
   return (
     <MessagesContext.Provider value={messages}>
       {children}
       <div className="w-full max-w-xl mx-auto">
-        <form
-          onSubmit={(e) => handleSubmit(e)}
-          className="fixed max-lg:left-1/2 max-lg:-translate-x-1/2 max-lg:bottom-0 bottom-12 w-full max-w-xl bg-davy shadow-2xl shadow-davy p-4 rounded-xl"
-        >
-          <p className="w-full text-center text-sm text-muted">
-            You&apos;re in public mode. Other silly goose will see your antics .
-          </p>
-          <div className="relative flex flex-row gap-1 items-end p-4 border border-muted rounded-xl">
-            <textarea
-              name="input"
-              rows={2}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              className="w-full resize-y min-h-12 max-h-40 focus-visible:outline-none scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white"
-            ></textarea>
+        <Form {...form}>
+          <form
+            id="ai-chat-form"
+            onSubmit={(e) => handleSubmit(e)}
+            className="fixed max-lg:left-1/2 max-lg:-translate-x-1/2 max-lg:bottom-0 bottom-12 w-full max-w-xl bg-davy shadow-2xl shadow-davy p-4 rounded-xl"
+          >
+            <p className="w-full text-center text-sm text-muted">
+              You&apos;re in public mode. Other silly goose will see your antics
+              .
+            </p>
+            <div className="relative flex flex-row gap-1 items-end p-4 border border-muted rounded-xl">
+              <textarea
+                name="input"
+                rows={2}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className="w-full resize-y min-h-12 max-h-40 focus-visible:outline-none scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white"
+              ></textarea>
 
-            <Button
-              className="p-2 h-fit w-fit bg-[#3E3A53]"
-              variant={"ghost"}
-              size={"icon"}
-              type="submit"
-              disabled={isLoading}
-            >
-              <MaterialSymbolsSendOutline className="w-5 h-5" />
-            </Button>
-          </div>
-        </form>
+              <Button
+                className="p-2 h-fit w-fit bg-[#3E3A53]"
+                variant={"ghost"}
+                size={"icon"}
+                type="submit"
+                disabled={isLoading}
+              >
+                <MaterialSymbolsSendOutline className="w-5 h-5" />
+              </Button>
+            </div>
+          </form>
+        </Form>
       </div>
     </MessagesContext.Provider>
   );

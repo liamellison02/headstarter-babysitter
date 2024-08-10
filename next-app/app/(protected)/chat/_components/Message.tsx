@@ -14,14 +14,20 @@ import { type Message } from "ai/react";
 type MessageProps = HTMLProps<HTMLDivElement> & {
   role: Message["role"];
   message: string;
+  toolInvocations?: any[];
 };
 
 export default function Message({
   role,
   message,
   className,
+  toolInvocations,
   ...props
 }: MessageProps) {
+  if (message.length <= 0) {
+    return null;
+  }
+
   return (
     <div
       {...props}
