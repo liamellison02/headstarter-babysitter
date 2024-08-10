@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Saira } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
 
 const saira = Saira({ subsets: ["latin"], weight: "600" });
 
@@ -92,9 +93,11 @@ export default function SecondSection() {
           <strong> stop trying to be a smartass</strong>?
         </p>
 
-        <Button className="font-bold rounded-full mt-4">
-          Start using the Headstarter Babysitter!
-        </Button>
+        <Link href={"/sign-in"}>
+          <Button className="font-bold rounded-full mt-4">
+            Start using the Headstarter Babysitter!
+          </Button>
+        </Link>
       </div>
 
       {/* Skill Graphics */}
