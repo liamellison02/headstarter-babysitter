@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SVGProps, useEffect, useState } from "react";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
+
 
 export default function Navbar() {
   const [scrollingUp, setScrollingUp] = useState(true);
@@ -43,7 +46,23 @@ export default function Navbar() {
       </Button>
 
       {/* Sign In Button */}
+      <SignedOut>
+      <Link href="/sign-in">
       <Button className="font-bold">Sign In</Button>
+      </Link>
+      </SignedOut>
+      <SignedIn>
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: "h-10 w-10",
+              },
+              variables: {
+                colorPrimary: "#5D63AF",
+              },
+            }}
+          />
+        </SignedIn>
     </div>
   );
 }
