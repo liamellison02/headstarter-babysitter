@@ -9,6 +9,11 @@ export default function ChatMessages() {
 
   return (
     <div className="space-y-4 pb-40">
+      {messages.length === 0 && (
+        <div className="text-center text-sm text-muted">No messages yet.</div>
+      )}
+
+      {/*  */}
       {messages.map((message) => (
         <Message
           key={message.id}

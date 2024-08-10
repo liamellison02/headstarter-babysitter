@@ -9,9 +9,10 @@ import rehypeRaw from "rehype-raw";
 import rehypeReact from "rehype-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { type Message } from "ai/react";
 
 type MessageProps = HTMLProps<HTMLDivElement> & {
-  role: "user" | "assistant";
+  role: Message["role"];
   message: string;
 };
 
