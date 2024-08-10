@@ -40,7 +40,7 @@ const config = {
         border: "#B6B6B6",
         lightPurple: "#C1B7F6",
         purple: "#7A67DA",
-        muted: "#858296",
+        muted: "#858296"
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
